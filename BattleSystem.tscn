@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk6tnwckbn1ha"]
+
+[ext_resource type="Script" path="res://BattleSystem.gd" id="1_7r0ot"]
+[ext_resource type="Texture2D" uid="uid://ebuoxh5i7rob" path="res://icon.svg" id="2_xwc0p"]
+[ext_resource type="Script" path="res://Selector.gd" id="2_yrord"]
+[ext_resource type="PackedScene" uid="uid://byfou3ygxhui0" path="res://PartyMember.tscn" id="4_0xm0s"]
+[ext_resource type="Script" path="res://BattleParticipant.gd" id="4_yrord"]
+[ext_resource type="PackedScene" uid="uid://3cfdvi2e7ohi" path="res://Enemy.tscn" id="5_wfh5h"]
+
+[node name="BattleSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7r0ot")
+metadata/_edit_lock_ = true
+
+[node name="PartyStatus" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyStatus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="PartyStatus/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PartyStatus2" type="Panel" parent="PartyStatus/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PartyStatus/HBoxContainer/PartyStatus2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PartyStatus/HBoxContainer/PartyStatus2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PartyStatus/HBoxContainer/PartyStatus2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "hello"
+
+[node name="Label2" type="Label" parent="PartyStatus/HBoxContainer/PartyStatus2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "other line"
+
+[node name="Label3" type="Label" parent="PartyStatus/HBoxContainer/PartyStatus2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfjkl;"
+
+[node name="Panel2" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = -50.0
+grow_vertical = 0
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Attack" type="Button" parent="Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Attack
+"
+
+[node name="Unique" type="Button" parent="Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Unique
+"
+
+[node name="Magic" type="Button" parent="Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Magic"
+
+[node name="Item" type="Button" parent="Panel2/VBoxContainer"]
+layout_mode = 2
+text = "Item"
+
+[node name="Selector" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_yrord")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Selector"]
+position = Vector2(154, 74)
+scale = Vector2(0.460938, 0.160156)
+texture = ExtResource("2_xwc0p")
+
+[node name="Node2D" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Party" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="Member" parent="Node2D/Party" instance=ExtResource("4_0xm0s")]
+position = Vector2(392, 65)
+
+[node name="Member2" parent="Node2D/Party" instance=ExtResource("4_0xm0s")]
+position = Vector2(398, 96)
+
+[node name="Member3" parent="Node2D/Party" instance=ExtResource("4_0xm0s")]
+position = Vector2(400, 131)
+
+[node name="Member4" parent="Node2D/Party" instance=ExtResource("4_0xm0s")]
+position = Vector2(405, 167)
+
+[node name="EnemyLayout" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="Enemy" parent="Node2D/EnemyLayout" instance=ExtResource("5_wfh5h")]
+position = Vector2(55, 59)
+
+[node name="Enemy2" type="Sprite2D" parent="Node2D/EnemyLayout"]
+position = Vector2(145, 140)
+scale = Vector2(0.539063, 0.5625)
+texture = ExtResource("2_xwc0p")
+script = ExtResource("4_yrord")
+
+[connection signal="pressed" from="Panel2/VBoxContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Panel2/VBoxContainer/Unique" to="." method="_on_unique_pressed"]
+[connection signal="pressed" from="Panel2/VBoxContainer/Magic" to="." method="_on_magic_pressed"]
+[connection signal="pressed" from="Panel2/VBoxContainer/Item" to="." method="_on_item_pressed"]
